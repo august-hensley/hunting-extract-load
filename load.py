@@ -2,6 +2,13 @@ import psycopg2
 import glob
 import argparse
 import time
+from configobj import ConfigObj
+
+conf = ConfigObj('postgres_cfg.ini')
+section = conf['user secrets']
+username = section['username']
+password = section['password']
+db = section['database']
 
 
 parser = argparse.ArgumentParser()
@@ -39,9 +46,9 @@ def get_create_sql(animal):
 
 conn = psycopg2.connect(
     host="localhost",
-    database="Gus",
-    user="Gus",
-    password="Hazeltoews19"
+    database=db,
+    user=username,
+    password=password
 )
 cur = conn.cursor()
 
